@@ -1,0 +1,111 @@
+
+ RUN  v4.0.18 /private/tmp/claude-501/-Users-s-trenyx/8948efe3-200a-462d-96bf-ba53c7e1d28b/scratchpad/pr
+
+ ×  integration  dev/trenyx-verify/takeover.int.spec.ts > F1 follow-up · customer-to-customer account access (Quick Start config) > customer B can read customer A's contact details by id (expected: refused) 5ms
+   → expected { …(10) } to be falsy
+ ×  integration  dev/trenyx-verify/takeover.int.spec.ts > F1 follow-up · customer-to-customer account access (Quick Start config) > customer B cannot change customer A's password (expected: refused; if this passes B logs in as A) 65ms
+   → promise resolved "{ …(9) }" instead of rejecting
+ ×  integration  dev/trenyx-verify/takeover.int.spec.ts > F1 follow-up · customer-to-customer account access (Quick Start config) > customer B cannot change customer A's email (expected: refused) 10ms
+   → promise resolved "{ …(9) }" instead of rejecting
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL   integration  dev/trenyx-verify/takeover.int.spec.ts > F1 follow-up · customer-to-customer account access (Quick Start config) > customer B can read customer A's contact details by id (expected: refused)
+AssertionError: expected { …(10) } to be falsy
+
+- Expected: 
+false
+
++ Received: 
+{
+  "bookings": {
+    "docs": [],
+    "hasNextPage": false,
+  },
+  "collection": "customers",
+  "createdAt": "2026-09-01T13:31:49.452Z",
+  "email": "victim@trenyx.test",
+  "firstName": "Vic",
+  "id": "6a96d3c52647af40318196d8",
+  "lastName": "Tim",
+  "phone": "+1-555-0100",
+  "sessions": [],
+  "updatedAt": "2026-09-01T13:31:49.452Z",
+}
+
+ ❯ dev/trenyx-verify/takeover.int.spec.ts:56:17
+     54|   it('customer B can read customer A\'s contact details by id (expecte…
+     55|     const doc = await (payload.findByID as any)({ id: custA.id, collec…
+     56|     expect(doc).toBeFalsy()
+       |                 ^
+     57|   })
+     58| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
+
+ FAIL   integration  dev/trenyx-verify/takeover.int.spec.ts > F1 follow-up · customer-to-customer account access (Quick Start config) > customer B cannot change customer A's password (expected: refused; if this passes B logs in as A)
+AssertionError: promise resolved "{ …(9) }" instead of rejecting
+
+- Expected
++ Received
+
+- Error {
+-   "message": "rejected promise",
++ {
++   "collection": "customers",
++   "createdAt": "2026-09-01T13:31:49.452Z",
++   "email": "victim@trenyx.test",
++   "firstName": "Vic",
++   "id": "6a96d3c52647af40318196d8",
++   "lastName": "Tim",
++   "phone": "+1-555-0100",
++   "sessions": [],
++   "updatedAt": "2026-09-01T13:31:49.585Z",
+  }
+
+ ❯ dev/trenyx-verify/takeover.int.spec.ts:60:156
+     58| 
+     59|   it('customer B cannot change customer A\'s password (expected: refus…
+     60|     await expect((payload.update as any)({ id: custA.id, collection: '…
+       |                                                                                                                                                            ^
+     61|     // Ground truth either way: can the NEW password log in as A?
+     62|     let loginOk = false
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯
+
+ FAIL   integration  dev/trenyx-verify/takeover.int.spec.ts > F1 follow-up · customer-to-customer account access (Quick Start config) > customer B cannot change customer A's email (expected: refused)
+AssertionError: promise resolved "{ …(9) }" instead of rejecting
+
+- Expected
++ Received
+
+- Error {
+-   "message": "rejected promise",
++ {
++   "collection": "customers",
++   "createdAt": "2026-09-01T13:31:49.452Z",
++   "email": "hijacked@trenyx.test",
++   "firstName": "Vic",
++   "id": "6a96d3c52647af40318196d8",
++   "lastName": "Tim",
++   "phone": "+1-555-0100",
++   "sessions": [],
++   "updatedAt": "2026-09-01T13:31:49.599Z",
+  }
+
+ ❯ dev/trenyx-verify/takeover.int.spec.ts:71:161
+     69| 
+     70|   it('customer B cannot change customer A\'s email (expected: refused)…
+     71|     await expect((payload.update as any)({ id: custA.id, collection: '…
+       |                                                                                                                                                                 ^
+     72|     const a = await (payload.findByID as any)({ id: custA.id, collecti…
+     73|     expect(a.email).toBe('victim@trenyx.test')
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/3]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  3 failed (3)
+   Start at  09:31:46
+   Duration  3.36s (transform 197ms, setup 0ms, import 707ms, tests 1.13s, environment 0ms)
+

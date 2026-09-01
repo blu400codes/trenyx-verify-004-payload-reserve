@@ -1,0 +1,244 @@
+[
+ {
+  "id": "D01",
+  "title": "capacity check admits one unit over quantity",
+  "file": "src/services/AvailabilityService.ts",
+  "status": "CAUGHT",
+  "new_failures": [
+   "A3: a neighbor service bufferTimeAfter blocks a back-to-back booking",
+   "A4: a multi-item booking only blocks each resource for its own item window",
+   "A5: two items in one create on the same resource cannot overlap",
+   "PATCH guestCount over per-guest capacity is rejected",
+   "PATCH startTime onto an occupied slot is rejected",
+   "POST /reserve/hold returns a token and blocks other bookers",
+   "a bounded flexible booking is conflict-checked on the expanded pool",
+   "a held slot is absent from getAvailableSlots when holdsSlug is passed",
+   "a hold request for an already-booked slot is refused",
+   "allows booking with guestCount: 5 because 15+5=20 is exactly at capacity",
+   "an active hold blocks another customer from booking the slot",
+   "blocks the WHOLE resource: quantity > 1 still rejects (units = quantity, not 1)",
+   "concurrent POSTs to /reserve/book yield exactly one booking, no 500s",
+   "conflict-checks the top-level resource when items[] omits it",
+   "counts an items[] resource that starts before the top-level startTime",
+   "drops a slot when the shared chair pool is fully booked at that time",
+   "logs conflict_check and conflict_reject when a booking conflicts",
+   "multi-resource booking uses per-item service buffers for conflict detection",
+   "prevents double-booking on same resource",
+   "rejects a booking overlapping an external interval",
+   "rejects a booking when one of the items conflicts with an existing reservation",
+   "rejects a fourth overlapping reservation when all units are booked",
+   "rejects a second booking when the required pool is full",
+   "rejects a standalone booking on a resource already held only in another booking's items[]",
+   "rejects booking with guestCount: 6 because 15+6=21 exceeds capacity of 20",
+   "reports all_slots_taken for a fully booked full-day service",
+   "reports all_slots_taken when the day is fully booked",
+   "retry recovers the FULL capacity of a quantity-3 resource under a burst of holds",
+   "retrying transient write conflicts recovers the full capacity of 3",
+   "returns one fewer slot after booking the first available slot",
+   "sequential double-booking is rejected (control)",
+   "still rejects a genuinely conflicting booking against a stored row with an inverted top-level window",
+   "unions service.requiredResources so a full pool removes a slot"
+  ],
+  "n_new": 33,
+  "seconds": 53
+ },
+ {
+  "id": "D02",
+  "title": "before-buffer dropped from the blocked window",
+  "file": "src/utilities/slotUtils.ts",
+  "status": "CAUGHT",
+  "new_failures": [
+   "multi-resource booking uses per-item service buffers for conflict detection"
+  ],
+  "n_new": 1,
+  "seconds": 54
+ },
+ {
+  "id": "D03",
+  "title": "conflict detected but not enforced (rejection skipped)",
+  "file": "src/hooks/reservations/validateConflicts.ts",
+  "status": "CAUGHT",
+  "new_failures": [
+   "A3: a neighbor service bufferTimeAfter blocks a back-to-back booking",
+   "A4: a multi-item booking only blocks each resource for its own item window",
+   "A5: two items in one create on the same resource cannot overlap",
+   "PATCH guestCount over per-guest capacity is rejected",
+   "PATCH startTime onto an occupied slot is rejected",
+   "POST /reserve/hold returns a token and blocks other bookers",
+   "a bounded flexible booking is conflict-checked on the expanded pool",
+   "an active hold blocks another customer from booking the slot",
+   "blocks the WHOLE resource: quantity > 1 still rejects (units = quantity, not 1)",
+   "concurrent POSTs to /reserve/book yield exactly one booking, no 500s",
+   "conflict-checks the top-level resource when items[] omits it",
+   "counts an items[] resource that starts before the top-level startTime",
+   "logs conflict_check and conflict_reject when a booking conflicts",
+   "multi-resource booking uses per-item service buffers for conflict detection",
+   "prevents double-booking on same resource",
+   "rejects a booking overlapping an external interval",
+   "rejects a booking when one of the items conflicts with an existing reservation",
+   "rejects a fourth overlapping reservation when all units are booked",
+   "rejects a second booking when the required pool is full",
+   "rejects a standalone booking on a resource already held only in another booking's items[]",
+   "rejects any additional booking once capacity is fully consumed (20/20)",
+   "rejects booking with guestCount: 6 because 15+6=21 exceeds capacity of 20",
+   "retrying transient write conflicts recovers the full capacity of 3",
+   "sequential double-booking is rejected (control)",
+   "still rejects a genuinely conflicting booking against a stored row with an inverted top-level window"
+  ],
+  "n_new": 25,
+  "seconds": 53
+ },
+ {
+  "id": "D04",
+  "title": "bookingLock taken for only the first claimed resource",
+  "file": "src/hooks/reservations/acquireBookingLock.ts",
+  "status": "ESCAPED",
+  "new_failures": [],
+  "n_new": 0,
+  "seconds": 53
+ },
+ {
+  "id": "D05",
+  "title": "first idempotency-key replay accepted",
+  "file": "src/hooks/reservations/checkIdempotency.ts",
+  "status": "ESCAPED",
+  "new_failures": [],
+  "n_new": 0,
+  "seconds": 52
+ },
+ {
+  "id": "D06",
+  "title": "exception range end date exclusive (last leave day bookable)",
+  "file": "src/utilities/scheduleUtils.ts",
+  "status": "CAUGHT",
+  "new_failures": [
+   "A11: an exception on one of a resource’s schedules blocks the whole resource that day",
+   "UTC-midnight instant keys to the prior day in negative-offset zones",
+   "UTC-midnight instant stays on the same day in non-negative-offset zones",
+   "an exception blocks exactly the Paris calendar day",
+   "matches a single-day exception (back-compat)",
+   "matches inside a range and both boundaries inclusively"
+  ],
+  "n_new": 6,
+  "seconds": 53
+ },
+ {
+  "id": "D07",
+  "title": "consumed hold not released after conversion",
+  "file": "src/endpoints/createBooking.ts",
+  "status": "CAUGHT",
+  "new_failures": [
+   "a booking presenting the holdToken succeeds"
+  ],
+  "n_new": 1,
+  "seconds": 54
+ },
+ {
+  "id": "D08",
+  "title": "only the first item's service/resource checked for active",
+  "file": "src/hooks/reservations/validateActive.ts",
+  "status": "CAUGHT",
+  "new_failures": [
+   "rejects when a service auto-expands an inactive required pool",
+   "uses an indexed path for a multi-resource booking"
+  ],
+  "n_new": 2,
+  "seconds": 53
+ },
+ {
+  "id": "D09",
+  "title": "cancellationToken echoed in the book response",
+  "file": "src/endpoints/createBooking.ts",
+  "status": "CAUGHT",
+  "new_failures": [
+   "book endpoint does not return the cancellationToken"
+  ],
+  "n_new": 1,
+  "seconds": 53
+ },
+ {
+  "id": "D10",
+  "title": "customer id honoured from the caller on the collection route",
+  "file": "src/hooks/reservations/enforceCustomerOwnership.ts",
+  "status": "CAUGHT",
+  "new_failures": [
+   "forces a non-privileged customer to book for themselves"
+  ],
+  "n_new": 1,
+  "seconds": 53
+ },
+ {
+  "id": "D11",
+  "title": "cancellation notice period never enforced",
+  "file": "src/hooks/reservations/validateCancellation.ts",
+  "status": "CAUGHT",
+  "new_failures": [
+   "beforeBookingCancel does NOT fire when the notice period rejects the cancel (A8)",
+   "nests the hook message where extractErrorMessage looks for it",
+   "rejects cancellation within notice period"
+  ],
+  "n_new": 3,
+  "seconds": 53
+ },
+ {
+  "id": "D12",
+  "title": "illegal status transition accepted",
+  "file": "src/services/AvailabilityService.ts",
+  "status": "CAUGHT",
+  "new_failures": [
+   "rejects completed -> pending transition",
+   "validateTransition: rejects invalid completed -> pending"
+  ],
+  "n_new": 2,
+  "seconds": 53
+ },
+ {
+  "id": "D13",
+  "title": "per-guest occupancy counted as one unit",
+  "file": "src/services/AvailabilityService.ts",
+  "status": "CAUGHT",
+  "new_failures": [
+   "PATCH guestCount over per-guest capacity is rejected",
+   "rejects any additional booking once capacity is fully consumed (20/20)",
+   "rejects booking with guestCount: 6 because 15+6=21 exceeds capacity of 20"
+  ],
+  "n_new": 3,
+  "seconds": 52
+ },
+ {
+  "id": "N01",
+  "title": "date-only exception/manual-slot dates shift a day west of UTC",
+  "file": "",
+  "status": "NATIVE",
+  "new_failures": [],
+  "n_new": 0,
+  "seconds": 0
+ },
+ {
+  "id": "N02",
+  "title": "plain-install customers read/mutate all reservations + customer PII",
+  "file": "",
+  "status": "NATIVE",
+  "new_failures": [],
+  "n_new": 0,
+  "seconds": 0
+ },
+ {
+  "id": "N03",
+  "title": "delete skips cancellation policy + cancel hooks",
+  "file": "",
+  "status": "NATIVE",
+  "new_failures": [],
+  "n_new": 0,
+  "seconds": 0
+ },
+ {
+  "id": "N04",
+  "title": "guestCount 1.5 accepted on the collection (hold endpoint rejects it)",
+  "file": "",
+  "status": "NATIVE",
+  "new_failures": [],
+  "n_new": 0,
+  "seconds": 0
+ }
+]
