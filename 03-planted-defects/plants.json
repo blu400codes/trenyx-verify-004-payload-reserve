@@ -1,37 +1,143 @@
 {
  "engagement": "verify-004",
  "target": "elghaied/payload-reserve@b04d04b",
- "suite": {"cmd": "pnpm test:int", "runner": "vitest", "timeout": 1500},
+ "suite": {
+  "cmd": "pnpm test:int",
+  "runner": "vitest",
+  "timeout": 1500
+ },
  "plants": [
-  {"id":"D01","fault":"F-LIMIT-OFFBYONE","title":"capacity check admits one unit over quantity","file":"src/services/AvailabilityService.ts",
-   "old":"  const available = currentUnits + candidateUnits <= quantity\n","new":"  const available = currentUnits + candidateUnits <= quantity + 1\n"},
-  {"id":"D02","fault":"F-BUFFER-ONESIDED","title":"before-buffer dropped from the blocked window","file":"src/utilities/slotUtils.ts",
-   "old":"    effectiveStart: addMinutes(startTime, -bufferBefore),\n","new":"    effectiveStart: startTime,\n"},
-  {"id":"D03","fault":"F-EXCEPTION-SWALLOWED","title":"conflict detected but not enforced (rejection skipped)","file":"src/hooks/reservations/validateConflicts.ts",
-   "old":"      if (!result.available) {\n","new":"      if (!result.available && false) {\n"},
-  {"id":"D04","fault":"F-LOCK-PARTIAL","title":"bookingLock taken for only the first claimed resource","file":"src/hooks/reservations/acquireBookingLock.ts",
-   "old":"    for (const id of resourceIds) {\n","new":"    for (const id of resourceIds.slice(0, 1)) {\n"},
-  {"id":"D05","fault":"F-IDEMPOTENCY-KEY-IGNORED","title":"first idempotency-key replay accepted","file":"src/hooks/reservations/checkIdempotency.ts",
-   "old":"    if (totalDocs > 0) {\n","new":"    if (totalDocs > 1) {\n"},
-  {"id":"D06","fault":"F-TZ-RANGE-EXCLUSIVE","title":"exception range end date exclusive (last leave day bookable)","file":"src/utilities/scheduleUtils.ts",
-   "old":"    return target >= start && target <= end\n","new":"    return target >= start && target < end\n"},
-  {"id":"D07","fault":"F-HOLD-CONVERT-DOUBLE","title":"consumed hold not released after conversion","file":"src/endpoints/createBooking.ts",
-   "old":"      if (holdToken) {\n        try {\n          await req.payload.delete({\n","new":"      if (holdToken && false) {\n        try {\n          await req.payload.delete({\n"},
-  {"id":"D08","fault":"F-ACTIVE-ITEMS-UNCHECKED","title":"only the first item's service/resource checked for active","file":"src/hooks/reservations/validateActive.ts",
-   "old":"    for (const [index, item] of items.entries()) {\n","new":"    for (const [index, item] of items.slice(0, 1).entries()) {\n"},
-  {"id":"D09","fault":"F-TOKEN-LEAK","title":"cancellationToken echoed in the book response","file":"src/endpoints/createBooking.ts",
-   "old":"      return Response.json(safeReservation, { status: 201 })\n","new":"      return Response.json(reservation, { status: 201 })\n"},
-  {"id":"D10","fault":"F-ATTRIBUTION-FROM-INPUT","title":"customer id honoured from the caller on the collection route","file":"src/hooks/reservations/enforceCustomerOwnership.ts",
-   "old":"        data.customer = req.user.id\n","new":"        // data.customer = req.user.id\n"},
-  {"id":"D11","fault":"F-EXIT-IGNORED","title":"cancellation notice period never enforced","file":"src/hooks/reservations/validateCancellation.ts",
-   "old":"    if (hours > 0 && hours < config.cancellationNoticePeriod) {\n","new":"    if (hours > 0 && hours < 0) {\n"},
-  {"id":"D12","fault":"F-CONFIG-PARTIAL-ACCEPT","title":"illegal status transition accepted","file":"src/services/AvailabilityService.ts",
-   "old":"  if (!allowed.includes(toStatus)) {\n","new":"  if (false && !allowed.includes(toStatus)) {\n"},
-  {"id":"D13","fault":"F-CAPACITY-MODE-IGNORED","title":"per-guest occupancy counted as one unit","file":"src/services/AvailabilityService.ts",
-   "old":"      units: capacityMode === 'per-guest' ? item.guestCount : 1,\n","new":"      units: 1,\n"},
-  {"id":"N01","fault":"F-TZ-DATEONLY-UTC-SHIFT","status":"native","title":"date-only exception/manual-slot dates shift a day west of UTC","note":"found by independent test (pure + dynamic); pending refutation"},
-  {"id":"N02","fault":"F-DEFAULT-ACCESS-OPEN","status":"native","title":"plain-install customers read/mutate all reservations + customer PII","note":"found by independent test; pending refutation"},
-  {"id":"N03","fault":"F-DELETE-BYPASSES-POLICY","status":"native","title":"delete skips cancellation policy + cancel hooks","note":"found by independent test; pending refutation"},
-  {"id":"N04","fault":"F-NONINTEGER-UNITS","status":"native","title":"guestCount 1.5 accepted on the collection (hold endpoint rejects it)","note":"found by independent test; LOW"}
+  {
+   "id": "D01",
+   "fault": "F-LIMIT-OFFBYONE",
+   "title": "capacity check admits one unit over quantity",
+   "file": "src/services/AvailabilityService.ts",
+   "old": "  const available = currentUnits + candidateUnits <= quantity\n",
+   "new": "  const available = currentUnits + candidateUnits <= quantity + 1\n"
+  },
+  {
+   "id": "D02",
+   "fault": "F-BUFFER-ONESIDED",
+   "title": "before-buffer dropped from the blocked window",
+   "file": "src/utilities/slotUtils.ts",
+   "old": "    effectiveStart: addMinutes(startTime, -bufferBefore),\n",
+   "new": "    effectiveStart: startTime,\n"
+  },
+  {
+   "id": "D03",
+   "fault": "F-EXCEPTION-SWALLOWED",
+   "title": "conflict detected but not enforced (rejection skipped)",
+   "file": "src/hooks/reservations/validateConflicts.ts",
+   "old": "      if (!result.available) {\n",
+   "new": "      if (!result.available && false) {\n"
+  },
+  {
+   "id": "D04",
+   "fault": "F-LOCK-PARTIAL",
+   "title": "bookingLock taken for only the first claimed resource",
+   "file": "src/hooks/reservations/acquireBookingLock.ts",
+   "old": "    for (const id of resourceIds) {\n",
+   "new": "    for (const id of resourceIds.slice(0, 1)) {\n"
+  },
+  {
+   "id": "D05",
+   "fault": "F-IDEMPOTENCY-KEY-IGNORED",
+   "title": "first idempotency-key replay accepted",
+   "file": "src/hooks/reservations/checkIdempotency.ts",
+   "old": "    if (totalDocs > 0) {\n",
+   "new": "    if (totalDocs > 1) {\n"
+  },
+  {
+   "id": "D06",
+   "fault": "F-TZ-RANGE-EXCLUSIVE",
+   "title": "exception range end date exclusive (last leave day bookable)",
+   "file": "src/utilities/scheduleUtils.ts",
+   "old": "    return target >= start && target <= end\n",
+   "new": "    return target >= start && target < end\n"
+  },
+  {
+   "id": "D07",
+   "fault": "F-HOLD-CONVERT-DOUBLE",
+   "title": "consumed hold not released after conversion",
+   "file": "src/endpoints/createBooking.ts",
+   "old": "      if (holdToken) {\n        try {\n          await req.payload.delete({\n",
+   "new": "      if (holdToken && false) {\n        try {\n          await req.payload.delete({\n"
+  },
+  {
+   "id": "D08",
+   "fault": "F-ACTIVE-ITEMS-UNCHECKED",
+   "title": "only the first item's service/resource checked for active",
+   "file": "src/hooks/reservations/validateActive.ts",
+   "old": "    for (const [index, item] of items.entries()) {\n",
+   "new": "    for (const [index, item] of items.slice(0, 1).entries()) {\n"
+  },
+  {
+   "id": "D09",
+   "fault": "F-TOKEN-LEAK",
+   "title": "cancellationToken echoed in the book response",
+   "file": "src/endpoints/createBooking.ts",
+   "old": "      return Response.json(safeReservation, { status: 201 })\n",
+   "new": "      return Response.json(reservation, { status: 201 })\n"
+  },
+  {
+   "id": "D10",
+   "fault": "F-ATTRIBUTION-FROM-INPUT",
+   "title": "customer id honoured from the caller on the collection route",
+   "file": "src/hooks/reservations/enforceCustomerOwnership.ts",
+   "old": "        data.customer = req.user.id\n",
+   "new": "        // data.customer = req.user.id\n"
+  },
+  {
+   "id": "D11",
+   "fault": "F-EXIT-IGNORED",
+   "title": "cancellation notice period never enforced",
+   "file": "src/hooks/reservations/validateCancellation.ts",
+   "old": "    if (hours > 0 && hours < config.cancellationNoticePeriod) {\n",
+   "new": "    if (hours > 0 && hours < 0) {\n"
+  },
+  {
+   "id": "D12",
+   "fault": "F-CONFIG-PARTIAL-ACCEPT",
+   "title": "illegal status transition accepted",
+   "file": "src/services/AvailabilityService.ts",
+   "old": "  if (!allowed.includes(toStatus)) {\n",
+   "new": "  if (false && !allowed.includes(toStatus)) {\n"
+  },
+  {
+   "id": "D13",
+   "fault": "F-CAPACITY-MODE-IGNORED",
+   "title": "per-guest occupancy counted as one unit",
+   "file": "src/services/AvailabilityService.ts",
+   "old": "      units: capacityMode === 'per-guest' ? item.guestCount : 1,\n",
+   "new": "      units: 1,\n"
+  },
+  {
+   "id": "N01",
+   "fault": "F-TZ-DATEONLY-UTC-SHIFT",
+   "status": "native",
+   "title": "date-only exception/manual-slot dates shift a day west of UTC",
+   "note": "found by independent test (pure + dynamic); F2 MEDIUM after refutation"
+  },
+  {
+   "id": "N02",
+   "fault": "F-DEFAULT-ACCESS-OPEN",
+   "status": "native",
+   "title": "access-control native — details withheld pending private disclosure",
+   "note": "found by independent test; F1 HIGH, not refuted; specifics publish after a fix"
+  },
+  {
+   "id": "N03",
+   "fault": "F-DELETE-BYPASSES-POLICY",
+   "status": "native",
+   "title": "policy-bypass native — details withheld pending private disclosure",
+   "note": "found by independent test; F3 LOW after refutation; specifics publish after a fix"
+  },
+  {
+   "id": "N04",
+   "fault": "F-NONINTEGER-UNITS",
+   "status": "native",
+   "title": "guestCount 1.5 accepted on the collection (hold endpoint rejects it)",
+   "note": "found by independent test; F4 LOW"
+  }
  ]
 }

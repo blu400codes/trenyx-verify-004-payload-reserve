@@ -109,3 +109,7 @@ AssertionError: promise resolved "{ …(9) }" instead of rejecting
    Start at  09:31:46
    Duration  3.36s (transform 197ms, setup 0ms, import 707ms, tests 1.13s, environment 0ms)
 
+
+--- ground-truth variant (assert removed, login attempted) ---
+PASSWORD-UPDATE-BY-B: RESOLVED
+LOGIN-AS-A-WITH-B-PASSWORD: true

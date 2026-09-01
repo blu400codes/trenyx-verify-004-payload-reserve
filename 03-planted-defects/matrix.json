@@ -216,7 +216,7 @@
  },
  {
   "id": "N02",
-  "title": "plain-install customers read/mutate all reservations + customer PII",
+  "title": "access-control native — details withheld pending private disclosure",
   "file": "",
   "status": "NATIVE",
   "new_failures": [],
@@ -225,7 +225,7 @@
  },
  {
   "id": "N03",
-  "title": "delete skips cancellation policy + cancel hooks",
+  "title": "policy-bypass native — details withheld pending private disclosure",
   "file": "",
   "status": "NATIVE",
   "new_failures": [],

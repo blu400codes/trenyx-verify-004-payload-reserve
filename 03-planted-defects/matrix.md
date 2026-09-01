@@ -20,6 +20,6 @@ Baseline: 0 pre-existing failures (baseline_failures.txt).
 | D12 | illegal status transition accepted | `src/services/AvailabilityService.ts` | **CAUGHT** | rejects completed -> pending transition, validateTransition: rejects invalid completed -> pending |
 | D13 | per-guest occupancy counted as one unit | `src/services/AvailabilityService.ts` | **CAUGHT** | PATCH guestCount over per-guest capacity is rejected, rejects any additional booking once capacity is fully consumed (20/20), rejects booking with guestCount: 6 because 15+6=21 exceeds capacity of 20 |
 | N01 | date-only exception/manual-slot dates shift a day west of UTC |  | **NATIVE** |  |
-| N02 | plain-install customers read/mutate all reservations + customer PII |  | **NATIVE** |  |
-| N03 | delete skips cancellation policy + cancel hooks |  | **NATIVE** |  |
+| N02 | access-control native — details withheld pending private disclosure |  | **NATIVE** |  |
+| N03 | policy-bypass native — details withheld pending private disclosure |  | **NATIVE** |  |
 | N04 | guestCount 1.5 accepted on the collection (hold endpoint rejects it) |  | **NATIVE** |  |
