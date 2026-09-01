@@ -1,0 +1,470 @@
+
+ RUN  v4.0.18 /private/tmp/claude-501/-Users-s-trenyx/8948efe3-200a-462d-96bf-ba53c7e1d28b/scratchpad/pr
+
+ ×  integration  dev/trenyx-verify/blind.int.spec.ts > I-AUTHZ · default (plain-install) collection access between customers > customer B cannot READ customer A's reservation through the collection API 5ms
+   → expected 1 to be +0 // Object.is equality
+ ×  integration  dev/trenyx-verify/blind.int.spec.ts > I-AUTHZ · default (plain-install) collection access between customers > customer B cannot UPDATE (reschedule/cancel) customer A's reservation 20ms
+   → promise resolved "{ …(13) }" instead of rejecting
+ ×  integration  dev/trenyx-verify/blind.int.spec.ts > I-AUTHZ · default (plain-install) collection access between customers > customer B cannot DELETE customer A's reservation 15ms
+   → promise resolved "{ …(13) }" instead of rejecting
+ ×  integration  dev/trenyx-verify/blind.int.spec.ts > I-AUTHZ · default (plain-install) collection access between customers > customer B cannot read other customers' PII through the customers collection 3ms
+   → expected [ '6a96d0658d9266500aa9909d', …(1) ] to not include '6a96d0658d9266500aa9909a'
+ ✓  integration  dev/trenyx-verify/blind.int.spec.ts > I-STATUS · cancellation notice cannot be bypassed > cancelling inside the notice window is refused; outside it is allowed 37ms
+ ×  integration  dev/trenyx-verify/blind.int.spec.ts > I-STATUS · cancellation notice cannot be bypassed > the OWNER deleting their own reservation inside the notice window is refused (delete must not bypass the policy) 26ms
+   → promise resolved "{ …(12) }" instead of rejecting
+ ✓  integration  dev/trenyx-verify/blind.int.spec.ts > I-STATUS · cancellation notice cannot be bypassed > an illegal transition is refused and a terminal status is final 30ms
+ ✓  integration  dev/trenyx-verify/blind.int.spec.ts > I-STATUS · cancellation notice cannot be bypassed > a non-privileged caller cannot create a reservation already in a non-default status 7ms
+ ×  integration  dev/trenyx-verify/blind.int.spec.ts > I-TIME · exception days resolve in the business timezone > pure: a YYYY-MM-DD exception (the README's documented form) blocks THAT day in America/New_York 1ms
+   → expected false to be true // Object.is equality
+ ×  integration  dev/trenyx-verify/blind.int.spec.ts > I-TIME · exception days resolve in the business timezone > dynamic: a schedule exception entered as 2025-12-25 removes slots on 2025-12-25, not on 2025-12-24 65ms
+   → expected 29 to be +0 // Object.is equality
+ ✓  integration  dev/trenyx-verify/blind.int.spec.ts > I-NOOVERLAP · overlap boundaries and buffers > touching intervals (end == start) do not conflict with zero buffers; a real overlap does 27ms
+ ✓  integration  dev/trenyx-verify/blind.int.spec.ts > I-NOOVERLAP · overlap boundaries and buffers > the EXISTING booking's after-buffer is enforced against a newcomer 29ms
+ ✓  integration  dev/trenyx-verify/blind.int.spec.ts > I-NOOVERLAP · overlap boundaries and buffers > the NEWCOMER's before-buffer is enforced against an existing booking 31ms
+ ✓  integration  dev/trenyx-verify/blind.int.spec.ts > I-NOOVERLAP · overlap boundaries and buffers > fixed-duration endTime cannot be tampered shorter to dodge a conflict 14ms
+ ✓  integration  dev/trenyx-verify/blind.int.spec.ts > I-CAPACITY · quantity and per-guest counting > per-reservation: quantity 2 admits two overlapping bookings and refuses the third 30ms
+ ✓  integration  dev/trenyx-verify/blind.int.spec.ts > I-CAPACITY · quantity and per-guest counting > per-guest: quantity 4 sums guest counts exactly 28ms
+ ×  integration  dev/trenyx-verify/blind.int.spec.ts > I-CAPACITY · quantity and per-guest counting > guestCount must be a positive integer (0 and 1.5 are refused) 17ms
+   → promise resolved "{ …(12) }" instead of rejecting
+ ✓  integration  dev/trenyx-verify/blind.int.spec.ts > I-IDEMPOTENT · keys and slot holds > a replayed idempotencyKey never creates a second reservation 13ms
+ ✓  integration  dev/trenyx-verify/blind.int.spec.ts > I-IDEMPOTENT · keys and slot holds > a hold blocks the slot for others, converts once with its token, and cannot convert twice 64ms
+ ✓  integration  dev/trenyx-verify/blind.int.spec.ts > I-IDEMPOTENT · keys and slot holds > a hold with guestCount 0 is a 400, not a 409 0ms
+ ✓  integration  dev/trenyx-verify/blind.int.spec.ts > I-ACTIVE · inactive references are refused everywhere > an inactive resource referenced only via items[] is refused 3ms
+ ✓  integration  dev/trenyx-verify/blind.int.spec.ts > I-ACTIVE · inactive references are refused everywhere > rescheduling an existing booking onto an inactive resource is refused; cancelling it stays allowed 39ms
+ ✓  integration  dev/trenyx-verify/blind.int.spec.ts > I-GUEST-XOR · guest bookings and the cancellation token > exactly one of customer / guest; a guest needs name + (email | phone) 1ms
+ ✓  integration  dev/trenyx-verify/blind.int.spec.ts > I-GUEST-XOR · guest bookings and the cancellation token > the book response and a customer-level read never expose cancellationToken; a wrong token cannot cancel 23ms
+ ✓  integration  dev/trenyx-verify/blind.int.spec.ts > I-GUEST-XOR · guest bookings and the cancellation token > an anonymous caller cannot book as a named customer; an authenticated customer is forced onto their own id 15ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 8 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL   integration  dev/trenyx-verify/blind.int.spec.ts > I-AUTHZ · default (plain-install) collection access between customers > customer B cannot READ customer A's reservation through the collection API
+AssertionError: expected 1 to be +0 // Object.is equality
+
+- Expected
++ Received
+
+- 0
++ 1
+
+ ❯ dev/trenyx-verify/blind.int.spec.ts:125:25
+    123|   it('customer B cannot READ customer A\'s reservation through the col…
+    124|     const r = await (payload.find as any)({ collection: 'reservations'…
+    125|     expect(r.totalDocs).toBe(0)
+       |                         ^
+    126|   })
+    127|   it('customer B cannot UPDATE (reschedule/cancel) customer A\'s reser…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/8]⎯
+
+ FAIL   integration  dev/trenyx-verify/blind.int.spec.ts > I-AUTHZ · default (plain-install) collection access between customers > customer B cannot UPDATE (reschedule/cancel) customer A's reservation
+AssertionError: promise resolved "{ …(13) }" instead of rejecting
+
+- Expected
++ Received
+
+- Error {
+-   "message": "rejected promise",
++ {
++   "createdAt": "2026-09-01T13:17:25.892Z",
++   "customer": {
++     "bookings": {
++       "docs": [
++         "6a96d0658d9266500aa990c0",
++       ],
++       "hasNextPage": false,
++     },
++     "collection": "customers",
++     "createdAt": "2026-09-01T13:17:25.727Z",
++     "email": "a@trenyx.test",
++     "firstName": "Ann",
++     "id": "6a96d0658d9266500aa9909a",
++     "lastName": "A",
++     "sessions": [],
++     "updatedAt": "2026-09-01T13:17:25.727Z",
++   },
++   "endTime": "2027-03-10T16:00:00.000Z",
++   "guest": {},
++   "guestCount": 1,
++   "id": "6a96d0658d9266500aa990c0",
++   "items": [],
++   "notes": "hijacked",
++   "resource": {
++     "active": true,
++     "bookingLock": "1788268645882:1",
++     "capacityMode": "per-reservation",
++     "createdAt": "2026-09-01T13:17:25.820Z",
++     "id": "6a96d0658d9266500aa990a7",
++     "name": "q1",
++     "quantity": 1,
++     "resourceType": "staff",
++     "services": [
++       {
++         "active": true,
++         "allowGuestBooking": "inherit",
++         "bufferTimeAfter": 0,
++         "bufferTimeBefore": 0,
++         "createdAt": "2026-09-01T13:17:25.793Z",
++         "duration": 60,
++         "durationType": "fixed",
++         "id": "6a96d0658d9266500aa9909f",
++         "name": "60min",
++         "resources": {
++           "docs": [
++             "6a96d0658d9266500aa990b5",
++             "6a96d0658d9266500aa990b3",
++             "6a96d0658d9266500aa990b1",
++             "6a96d0658d9266500aa990af",
++             "6a96d0658d9266500aa990ad",
++             "6a96d0658d9266500aa990ab",
++             "6a96d0658d9266500aa990a9",
++             "6a96d0658d9266500aa990a7",
++           ],
++           "hasNextPage": false,
++         },
++         "updatedAt": "2026-09-01T13:17:25.793Z",
++       },
++     ],
++     "updatedAt": "2026-09-01T13:17:25.882Z",
++   },
++   "service": {
++     "active": true,
++     "allowGuestBooking": "inherit",
++     "bufferTimeAfter": 0,
++     "bufferTimeBefore": 0,
++     "createdAt": "2026-09-01T13:17:25.793Z",
++     "duration": 60,
++     "durationType": "fixed",
++     "id": "6a96d0658d9266500aa9909f",
++     "name": "60min",
++     "resources": {
++       "docs": [
++         "6a96d0658d9266500aa990b5",
++         "6a96d0658d9266500aa990b3",
++         "6a96d0658d9266500aa990b1",
++         "6a96d0658d9266500aa990af",
++         "6a96d0658d9266500aa990ad",
++         "6a96d0658d9266500aa990ab",
++         "6a96d0658d9266500aa990a9",
++         "6a96d0658d9266500aa990a7",
++       ],
++       "hasNextPage": false,
++     },
++     "updatedAt": "2026-09-01T13:17:25.793Z",
++   },
++   "startTime": "2027-03-10T15:00:00.000Z",
++   "status": "pending",
++   "updatedAt": "2026-09-01T13:17:25.909Z",
+  }
+
+ ❯ dev/trenyx-verify/blind.int.spec.ts:128:183
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/8]⎯
+
+ FAIL   integration  dev/trenyx-verify/blind.int.spec.ts > I-AUTHZ · default (plain-install) collection access between customers > customer B cannot DELETE customer A's reservation
+AssertionError: promise resolved "{ …(13) }" instead of rejecting
+
+- Expected
++ Received
+
+- Error {
+-   "message": "rejected promise",
++ {
++   "createdAt": "2026-09-01T13:17:25.892Z",
++   "customer": {
++     "bookings": {
++       "docs": [],
++       "hasNextPage": false,
++     },
++     "collection": "customers",
++     "createdAt": "2026-09-01T13:17:25.727Z",
++     "email": "a@trenyx.test",
++     "firstName": "Ann",
++     "id": "6a96d0658d9266500aa9909a",
++     "lastName": "A",
++     "sessions": [],
++     "updatedAt": "2026-09-01T13:17:25.727Z",
++   },
++   "endTime": "2027-03-10T16:00:00.000Z",
++   "guest": {},
++   "guestCount": 1,
++   "id": "6a96d0658d9266500aa990c0",
++   "items": [],
++   "notes": "hijacked",
++   "resource": {
++     "active": true,
++     "bookingLock": "1788268645882:1",
++     "capacityMode": "per-reservation",
++     "createdAt": "2026-09-01T13:17:25.820Z",
++     "id": "6a96d0658d9266500aa990a7",
++     "name": "q1",
++     "quantity": 1,
++     "resourceType": "staff",
++     "services": [
++       {
++         "active": true,
++         "allowGuestBooking": "inherit",
++         "bufferTimeAfter": 0,
++         "bufferTimeBefore": 0,
++         "createdAt": "2026-09-01T13:17:25.793Z",
++         "duration": 60,
++         "durationType": "fixed",
++         "id": "6a96d0658d9266500aa9909f",
++         "name": "60min",
++         "resources": {
++           "docs": [
++             "6a96d0658d9266500aa990b5",
++             "6a96d0658d9266500aa990b3",
++             "6a96d0658d9266500aa990b1",
++             "6a96d0658d9266500aa990af",
++             "6a96d0658d9266500aa990ad",
++             "6a96d0658d9266500aa990ab",
++             "6a96d0658d9266500aa990a9",
++             "6a96d0658d9266500aa990a7",
++           ],
++           "hasNextPage": false,
++         },
++         "updatedAt": "2026-09-01T13:17:25.793Z",
++       },
++     ],
++     "updatedAt": "2026-09-01T13:17:25.882Z",
++   },
++   "service": {
++     "active": true,
++     "allowGuestBooking": "inherit",
++     "bufferTimeAfter": 0,
++     "bufferTimeBefore": 0,
++     "createdAt": "2026-09-01T13:17:25.793Z",
++     "duration": 60,
++     "durationType": "fixed",
++     "id": "6a96d0658d9266500aa9909f",
++     "name": "60min",
++     "resources": {
++       "docs": [
++         "6a96d0658d9266500aa990b5",
++         "6a96d0658d9266500aa990b3",
++         "6a96d0658d9266500aa990b1",
++         "6a96d0658d9266500aa990af",
++         "6a96d0658d9266500aa990ad",
++         "6a96d0658d9266500aa990ab",
++         "6a96d0658d9266500aa990a9",
++         "6a96d0658d9266500aa990a7",
++       ],
++       "hasNextPage": false,
++     },
++     "updatedAt": "2026-09-01T13:17:25.793Z",
++   },
++   "startTime": "2027-03-10T15:00:00.000Z",
++   "status": "pending",
++   "updatedAt": "2026-09-01T13:17:25.909Z",
+  }
+
+ ❯ dev/trenyx-verify/blind.int.spec.ts:133:154
+    131|   })
+    132|   it('customer B cannot DELETE customer A\'s reservation', async () =>…
+    133|     await expect((payload.delete as any)({ id: aRes.id, collection: 'r…
+       |                                                                                                                                                          ^
+    134|     const still = await (payload.findByID as any)({ id: aRes.id, colle…
+    135|     expect(still).toBeTruthy()
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/8]⎯
+
+ FAIL   integration  dev/trenyx-verify/blind.int.spec.ts > I-AUTHZ · default (plain-install) collection access between customers > customer B cannot read other customers' PII through the customers collection
+AssertionError: expected [ '6a96d0658d9266500aa9909d', …(1) ] to not include '6a96d0658d9266500aa9909a'
+ ❯ dev/trenyx-verify/blind.int.spec.ts:140:21
+    138|     const r = await (payload.find as any)({ collection: 'customers', d…
+    139|     const ids = r.docs.map((d: Doc) => String(d.id))
+    140|     expect(ids).not.toContain(String(custA.id))
+       |                     ^
+    141|   })
+    142| })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/8]⎯
+
+ FAIL   integration  dev/trenyx-verify/blind.int.spec.ts > I-STATUS · cancellation notice cannot be bypassed > the OWNER deleting their own reservation inside the notice window is refused (delete must not bypass the policy)
+AssertionError: promise resolved "{ …(12) }" instead of rejecting
+
+- Expected
++ Received
+
+- Error {
+-   "message": "rejected promise",
++ {
++   "createdAt": "2026-09-01T13:17:25.988Z",
++   "customer": {
++     "bookings": {
++       "docs": [
++         "6a96d0658d9266500aa990eb",
++         "6a96d0658d9266500aa990de",
++       ],
++       "hasNextPage": false,
++     },
++     "collection": "customers",
++     "createdAt": "2026-09-01T13:17:25.727Z",
++     "email": "a@trenyx.test",
++     "firstName": "Ann",
++     "id": "6a96d0658d9266500aa9909a",
++     "lastName": "A",
++     "sessions": [],
++     "updatedAt": "2026-09-01T13:17:25.727Z",
++   },
++   "endTime": "2026-09-01T16:17:25.981Z",
++   "guest": {},
++   "guestCount": 1,
++   "id": "6a96d0658d9266500aa990fa",
++   "items": [],
++   "resource": {
++     "active": true,
++     "bookingLock": "1788268645983:1",
++     "capacityMode": "per-reservation",
++     "createdAt": "2026-09-01T13:17:25.827Z",
++     "id": "6a96d0658d9266500aa990a9",
++     "name": "q2",
++     "quantity": 2,
++     "resourceType": "staff",
++     "services": [
++       {
++         "active": true,
++         "allowGuestBooking": "inherit",
++         "bufferTimeAfter": 0,
++         "bufferTimeBefore": 0,
++         "createdAt": "2026-09-01T13:17:25.793Z",
++         "duration": 60,
++         "durationType": "fixed",
++         "id": "6a96d0658d9266500aa9909f",
++         "name": "60min",
++         "resources": {
++           "docs": [
++             "6a96d0658d9266500aa990b5",
++             "6a96d0658d9266500aa990b3",
++             "6a96d0658d9266500aa990b1",
++             "6a96d0658d9266500aa990af",
++             "6a96d0658d9266500aa990ad",
++             "6a96d0658d9266500aa990ab",
++             "6a96d0658d9266500aa990a9",
++             "6a96d0658d9266500aa990a7",
++           ],
++           "hasNextPage": false,
++         },
++         "updatedAt": "2026-09-01T13:17:25.793Z",
++       },
++     ],
++     "updatedAt": "2026-09-01T13:17:25.983Z",
++   },
++   "service": {
++     "active": true,
++     "allowGuestBooking": "inherit",
++     "bufferTimeAfter": 0,
++     "bufferTimeBefore": 0,
++     "createdAt": "2026-09-01T13:17:25.793Z",
++     "duration": 60,
++     "durationType": "fixed",
++     "id": "6a96d0658d9266500aa9909f",
++     "name": "60min",
++     "resources": {
++       "docs": [
++         "6a96d0658d9266500aa990b5",
++         "6a96d0658d9266500aa990b3",
++         "6a96d0658d9266500aa990b1",
++         "6a96d0658d9266500aa990af",
++         "6a96d0658d9266500aa990ad",
++         "6a96d0658d9266500aa990ab",
++         "6a96d0658d9266500aa990a9",
++         "6a96d0658d9266500aa990a7",
++       ],
++       "hasNextPage": false,
++     },
++     "updatedAt": "2026-09-01T13:17:25.793Z",
++   },
++   "startTime": "2026-09-01T15:17:25.981Z",
++   "status": "pending",
++   "updatedAt": "2026-09-01T13:17:25.988Z",
+  }
+
+ ❯ dev/trenyx-verify/blind.int.spec.ts:155:154
+    153|   it('the OWNER deleting their own reservation inside the notice windo…
+    154|     const soon = await mk('reservations', { customer: custA.id, resour…
+    155|     await expect((payload.delete as any)({ id: soon.id, collection: 'r…
+       |                                                                                                                                                          ^
+    156|   })
+    157|   it('an illegal transition is refused and a terminal status is final'…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/8]⎯
+
+ FAIL   integration  dev/trenyx-verify/blind.int.spec.ts > I-TIME · exception days resolve in the business timezone > pure: a YYYY-MM-DD exception (the README's documented form) blocks THAT day in America/New_York
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ dev/trenyx-verify/blind.int.spec.ts:185:73
+    183| describe('I-TIME · exception days resolve in the business timezone', (…
+    184|   it('pure: a YYYY-MM-DD exception (the README\'s documented form) blo…
+    185|     expect(isExceptionDate('2025-12-25', [{ date: '2025-12-25' }], TZ)…
+       |                                                                         ^
+    186|     expect(isExceptionDate('2025-12-24', [{ date: '2025-12-25' }], TZ)…
+    187|     expect(isExceptionDate('2025-12-26', [{ date: '2025-12-25', endDat…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/8]⎯
+
+ FAIL   integration  dev/trenyx-verify/blind.int.spec.ts > I-TIME · exception days resolve in the business timezone > dynamic: a schedule exception entered as 2025-12-25 removes slots on 2025-12-25, not on 2025-12-24
+AssertionError: expected 29 to be +0 // Object.is equality
+
+- Expected
++ Received
+
+- 0
++ 29
+
+ ❯ dev/trenyx-verify/blind.int.spec.ts:200:33
+    198|     const closed = await getAvailableSlots({ ...common, date: '2025-12…
+    199|     const open = await getAvailableSlots({ ...common, date: '2025-12-2…
+    200|     expect(closed.slots.length).toBe(0)
+       |                                 ^
+    201|     expect(open.slots.length).toBeGreaterThan(0)
+    202|   })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/8]⎯
+
+ FAIL   integration  dev/trenyx-verify/blind.int.spec.ts > I-CAPACITY · quantity and per-guest counting > guestCount must be a positive integer (0 and 1.5 are refused)
+AssertionError: promise resolved "{ …(12) }" instead of rejecting
+
+- Expected
++ Received
+
+- Error {
+-   "message": "rejected promise",
++ {
++   "createdAt": "2026-09-01T13:17:26.281Z",
++   "customer": "6a96d0658d9266500aa9909a",
++   "endTime": "2027-03-10T21:00:00.000Z",
++   "guest": {},
++   "guestCount": 1.5,
++   "id": "6a96d0668d9266500aa9924d",
++   "items": [],
++   "resource": "6a96d0658d9266500aa990ab",
++   "service": "6a96d0658d9266500aa9909f",
++   "startTime": "2027-03-10T20:00:00.000Z",
++   "status": "pending",
++   "updatedAt": "2026-09-01T13:17:26.281Z",
+  }
+
+ ❯ dev/trenyx-verify/blind.int.spec.ts:248:139
+    246|   it('guestCount must be a positive integer (0 and 1.5 are refused)', …
+    247|     await expect(mk('reservations', { customer: custA.id, guestCount: …
+    248|     await expect(mk('reservations', { customer: custA.id, guestCount: …
+       |                                                                                                                                           ^
+    249|   })
+    250| })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/8]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  8 failed | 17 passed (25)
+   Start at  09:17:22
+   Duration  4.28s (transform 209ms, setup 0ms, import 839ms, tests 1.93s, environment 0ms)
+
