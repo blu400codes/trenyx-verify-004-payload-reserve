@@ -1,0 +1,3 @@
+security_findings: yes
+disclosure_state: none
+withheld: 02-independent-tests/takeover.int.spec.ts, 02-independent-tests/takeover-run-output.txt

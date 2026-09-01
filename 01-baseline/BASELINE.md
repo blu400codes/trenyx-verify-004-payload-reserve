@@ -18,3 +18,4 @@ corepack (lockfile v9.0; the target's CI uses Node 22 + `pnpm install --frozen-l
 
 Note: the target's own vitest.config.js comment cites "604 / 0" as a historical true figure; the
 pinned commit reports 676. Counts are from this run's summary line, not typed.
+LOGIN-AS-A-WITH-B-PASSWORD: true
