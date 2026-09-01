@@ -1,14 +1,10 @@
 
- RUN  v4.0.18 /private/tmp/claude-501/-Users-s-trenyx/8948efe3-200a-462d-96bf-ba53c7e1d28b/scratchpad/pr
+ RUN  v4.0.18  <clone>/dev
 
- ×  integration  dev/trenyx-verify/blind.int.spec.ts > I-AUTHZ · default (plain-install) collection access between customers > customer B cannot READ customer A's reservation through the collection API 5ms
-   → expected 1 to be +0 // Object.is equality
- ×  integration  dev/trenyx-verify/blind.int.spec.ts > I-AUTHZ · default (plain-install) collection access between customers > customer B cannot UPDATE (reschedule/cancel) customer A's reservation 20ms
-   → promise resolved "{ …(13) }" instead of rejecting
- ×  integration  dev/trenyx-verify/blind.int.spec.ts > I-AUTHZ · default (plain-install) collection access between customers > customer B cannot DELETE customer A's reservation 15ms
-   → promise resolved "{ …(13) }" instead of rejecting
- ×  integration  dev/trenyx-verify/blind.int.spec.ts > I-AUTHZ · default (plain-install) collection access between customers > customer B cannot read other customers' PII through the customers collection 3ms
-   → expected [ '6a96d0658d9266500aa9909d', …(1) ] to not include '6a96d0658d9266500aa9909a'
+  [4 access-control scenarios withheld pending disclosure — see 04-findings/]
+  [4 access-control scenarios withheld pending disclosure — see 04-findings/]
+  [4 access-control scenarios withheld pending disclosure — see 04-findings/]
+  [4 access-control scenarios withheld pending disclosure — see 04-findings/]
  ✓  integration  dev/trenyx-verify/blind.int.spec.ts > I-STATUS · cancellation notice cannot be bypassed > cancelling inside the notice window is refused; outside it is allowed 37ms
  ×  integration  dev/trenyx-verify/blind.int.spec.ts > I-STATUS · cancellation notice cannot be bypassed > the OWNER deleting their own reservation inside the notice window is refused (delete must not bypass the policy) 26ms
    → promise resolved "{ …(12) }" instead of rejecting
@@ -37,248 +33,16 @@
 
 ⎯⎯⎯⎯⎯⎯⎯ Failed Tests 8 ⎯⎯⎯⎯⎯⎯⎯
 
- FAIL   integration  dev/trenyx-verify/blind.int.spec.ts > I-AUTHZ · default (plain-install) collection access between customers > customer B cannot READ customer A's reservation through the collection API
-AssertionError: expected 1 to be +0 // Object.is equality
-
-- Expected
-+ Received
-
-- 0
-+ 1
-
- ❯ dev/trenyx-verify/blind.int.spec.ts:125:25
-    123|   it('customer B cannot READ customer A\'s reservation through the col…
-    124|     const r = await (payload.find as any)({ collection: 'reservations'…
-    125|     expect(r.totalDocs).toBe(0)
-       |                         ^
-    126|   })
-    127|   it('customer B cannot UPDATE (reschedule/cancel) customer A\'s reser…
-
+  [4 access-control scenarios withheld pending disclosure — see 04-findings/]
 ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/8]⎯
 
- FAIL   integration  dev/trenyx-verify/blind.int.spec.ts > I-AUTHZ · default (plain-install) collection access between customers > customer B cannot UPDATE (reschedule/cancel) customer A's reservation
-AssertionError: promise resolved "{ …(13) }" instead of rejecting
-
-- Expected
-+ Received
-
-- Error {
--   "message": "rejected promise",
-+ {
-+   "createdAt": "2026-09-01T13:17:25.892Z",
-+   "customer": {
-+     "bookings": {
-+       "docs": [
-+         "6a96d0658d9266500aa990c0",
-+       ],
-+       "hasNextPage": false,
-+     },
-+     "collection": "customers",
-+     "createdAt": "2026-09-01T13:17:25.727Z",
-+     "email": "a@trenyx.test",
-+     "firstName": "Ann",
-+     "id": "6a96d0658d9266500aa9909a",
-+     "lastName": "A",
-+     "sessions": [],
-+     "updatedAt": "2026-09-01T13:17:25.727Z",
-+   },
-+   "endTime": "2027-03-10T16:00:00.000Z",
-+   "guest": {},
-+   "guestCount": 1,
-+   "id": "6a96d0658d9266500aa990c0",
-+   "items": [],
-+   "notes": "hijacked",
-+   "resource": {
-+     "active": true,
-+     "bookingLock": "1788268645882:1",
-+     "capacityMode": "per-reservation",
-+     "createdAt": "2026-09-01T13:17:25.820Z",
-+     "id": "6a96d0658d9266500aa990a7",
-+     "name": "q1",
-+     "quantity": 1,
-+     "resourceType": "staff",
-+     "services": [
-+       {
-+         "active": true,
-+         "allowGuestBooking": "inherit",
-+         "bufferTimeAfter": 0,
-+         "bufferTimeBefore": 0,
-+         "createdAt": "2026-09-01T13:17:25.793Z",
-+         "duration": 60,
-+         "durationType": "fixed",
-+         "id": "6a96d0658d9266500aa9909f",
-+         "name": "60min",
-+         "resources": {
-+           "docs": [
-+             "6a96d0658d9266500aa990b5",
-+             "6a96d0658d9266500aa990b3",
-+             "6a96d0658d9266500aa990b1",
-+             "6a96d0658d9266500aa990af",
-+             "6a96d0658d9266500aa990ad",
-+             "6a96d0658d9266500aa990ab",
-+             "6a96d0658d9266500aa990a9",
-+             "6a96d0658d9266500aa990a7",
-+           ],
-+           "hasNextPage": false,
-+         },
-+         "updatedAt": "2026-09-01T13:17:25.793Z",
-+       },
-+     ],
-+     "updatedAt": "2026-09-01T13:17:25.882Z",
-+   },
-+   "service": {
-+     "active": true,
-+     "allowGuestBooking": "inherit",
-+     "bufferTimeAfter": 0,
-+     "bufferTimeBefore": 0,
-+     "createdAt": "2026-09-01T13:17:25.793Z",
-+     "duration": 60,
-+     "durationType": "fixed",
-+     "id": "6a96d0658d9266500aa9909f",
-+     "name": "60min",
-+     "resources": {
-+       "docs": [
-+         "6a96d0658d9266500aa990b5",
-+         "6a96d0658d9266500aa990b3",
-+         "6a96d0658d9266500aa990b1",
-+         "6a96d0658d9266500aa990af",
-+         "6a96d0658d9266500aa990ad",
-+         "6a96d0658d9266500aa990ab",
-+         "6a96d0658d9266500aa990a9",
-+         "6a96d0658d9266500aa990a7",
-+       ],
-+       "hasNextPage": false,
-+     },
-+     "updatedAt": "2026-09-01T13:17:25.793Z",
-+   },
-+   "startTime": "2027-03-10T15:00:00.000Z",
-+   "status": "pending",
-+   "updatedAt": "2026-09-01T13:17:25.909Z",
-  }
-
- ❯ dev/trenyx-verify/blind.int.spec.ts:128:183
-
-
+  [4 access-control scenarios withheld pending disclosure — see 04-findings/]
 ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/8]⎯
 
- FAIL   integration  dev/trenyx-verify/blind.int.spec.ts > I-AUTHZ · default (plain-install) collection access between customers > customer B cannot DELETE customer A's reservation
-AssertionError: promise resolved "{ …(13) }" instead of rejecting
-
-- Expected
-+ Received
-
-- Error {
--   "message": "rejected promise",
-+ {
-+   "createdAt": "2026-09-01T13:17:25.892Z",
-+   "customer": {
-+     "bookings": {
-+       "docs": [],
-+       "hasNextPage": false,
-+     },
-+     "collection": "customers",
-+     "createdAt": "2026-09-01T13:17:25.727Z",
-+     "email": "a@trenyx.test",
-+     "firstName": "Ann",
-+     "id": "6a96d0658d9266500aa9909a",
-+     "lastName": "A",
-+     "sessions": [],
-+     "updatedAt": "2026-09-01T13:17:25.727Z",
-+   },
-+   "endTime": "2027-03-10T16:00:00.000Z",
-+   "guest": {},
-+   "guestCount": 1,
-+   "id": "6a96d0658d9266500aa990c0",
-+   "items": [],
-+   "notes": "hijacked",
-+   "resource": {
-+     "active": true,
-+     "bookingLock": "1788268645882:1",
-+     "capacityMode": "per-reservation",
-+     "createdAt": "2026-09-01T13:17:25.820Z",
-+     "id": "6a96d0658d9266500aa990a7",
-+     "name": "q1",
-+     "quantity": 1,
-+     "resourceType": "staff",
-+     "services": [
-+       {
-+         "active": true,
-+         "allowGuestBooking": "inherit",
-+         "bufferTimeAfter": 0,
-+         "bufferTimeBefore": 0,
-+         "createdAt": "2026-09-01T13:17:25.793Z",
-+         "duration": 60,
-+         "durationType": "fixed",
-+         "id": "6a96d0658d9266500aa9909f",
-+         "name": "60min",
-+         "resources": {
-+           "docs": [
-+             "6a96d0658d9266500aa990b5",
-+             "6a96d0658d9266500aa990b3",
-+             "6a96d0658d9266500aa990b1",
-+             "6a96d0658d9266500aa990af",
-+             "6a96d0658d9266500aa990ad",
-+             "6a96d0658d9266500aa990ab",
-+             "6a96d0658d9266500aa990a9",
-+             "6a96d0658d9266500aa990a7",
-+           ],
-+           "hasNextPage": false,
-+         },
-+         "updatedAt": "2026-09-01T13:17:25.793Z",
-+       },
-+     ],
-+     "updatedAt": "2026-09-01T13:17:25.882Z",
-+   },
-+   "service": {
-+     "active": true,
-+     "allowGuestBooking": "inherit",
-+     "bufferTimeAfter": 0,
-+     "bufferTimeBefore": 0,
-+     "createdAt": "2026-09-01T13:17:25.793Z",
-+     "duration": 60,
-+     "durationType": "fixed",
-+     "id": "6a96d0658d9266500aa9909f",
-+     "name": "60min",
-+     "resources": {
-+       "docs": [
-+         "6a96d0658d9266500aa990b5",
-+         "6a96d0658d9266500aa990b3",
-+         "6a96d0658d9266500aa990b1",
-+         "6a96d0658d9266500aa990af",
-+         "6a96d0658d9266500aa990ad",
-+         "6a96d0658d9266500aa990ab",
-+         "6a96d0658d9266500aa990a9",
-+         "6a96d0658d9266500aa990a7",
-+       ],
-+       "hasNextPage": false,
-+     },
-+     "updatedAt": "2026-09-01T13:17:25.793Z",
-+   },
-+   "startTime": "2027-03-10T15:00:00.000Z",
-+   "status": "pending",
-+   "updatedAt": "2026-09-01T13:17:25.909Z",
-  }
-
- ❯ dev/trenyx-verify/blind.int.spec.ts:133:154
-    131|   })
-    132|   it('customer B cannot DELETE customer A\'s reservation', async () =>…
-    133|     await expect((payload.delete as any)({ id: aRes.id, collection: 'r…
-       |                                                                                                                                                          ^
-    134|     const still = await (payload.findByID as any)({ id: aRes.id, colle…
-    135|     expect(still).toBeTruthy()
-
+  [4 access-control scenarios withheld pending disclosure — see 04-findings/]
 ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/8]⎯
 
- FAIL   integration  dev/trenyx-verify/blind.int.spec.ts > I-AUTHZ · default (plain-install) collection access between customers > customer B cannot read other customers' PII through the customers collection
-AssertionError: expected [ '6a96d0658d9266500aa9909d', …(1) ] to not include '6a96d0658d9266500aa9909a'
- ❯ dev/trenyx-verify/blind.int.spec.ts:140:21
-    138|     const r = await (payload.find as any)({ collection: 'customers', d…
-    139|     const ids = r.docs.map((d: Doc) => String(d.id))
-    140|     expect(ids).not.toContain(String(custA.id))
-       |                     ^
-    141|   })
-    142| })
-
+  [4 access-control scenarios withheld pending disclosure — see 04-findings/]
 ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/8]⎯
 
  FAIL   integration  dev/trenyx-verify/blind.int.spec.ts > I-STATUS · cancellation notice cannot be bypassed > the OWNER deleting their own reservation inside the notice window is refused (delete must not bypass the policy)
@@ -294,8 +58,6 @@ AssertionError: promise resolved "{ …(12) }" instead of rejecting
 +   "customer": {
 +     "bookings": {
 +       "docs": [
-+         "6a96d0658d9266500aa990eb",
-+         "6a96d0658d9266500aa990de",
 +       ],
 +       "hasNextPage": false,
 +     },
@@ -303,7 +65,6 @@ AssertionError: promise resolved "{ …(12) }" instead of rejecting
 +     "createdAt": "2026-09-01T13:17:25.727Z",
 +     "email": "a@trenyx.test",
 +     "firstName": "Ann",
-+     "id": "6a96d0658d9266500aa9909a",
 +     "lastName": "A",
 +     "sessions": [],
 +     "updatedAt": "2026-09-01T13:17:25.727Z",
@@ -311,14 +72,12 @@ AssertionError: promise resolved "{ …(12) }" instead of rejecting
 +   "endTime": "2026-09-01T16:17:25.981Z",
 +   "guest": {},
 +   "guestCount": 1,
-+   "id": "6a96d0658d9266500aa990fa",
 +   "items": [],
 +   "resource": {
 +     "active": true,
 +     "bookingLock": "1788268645983:1",
 +     "capacityMode": "per-reservation",
 +     "createdAt": "2026-09-01T13:17:25.827Z",
-+     "id": "6a96d0658d9266500aa990a9",
 +     "name": "q2",
 +     "quantity": 2,
 +     "resourceType": "staff",
@@ -331,18 +90,9 @@ AssertionError: promise resolved "{ …(12) }" instead of rejecting
 +         "createdAt": "2026-09-01T13:17:25.793Z",
 +         "duration": 60,
 +         "durationType": "fixed",
-+         "id": "6a96d0658d9266500aa9909f",
 +         "name": "60min",
 +         "resources": {
 +           "docs": [
-+             "6a96d0658d9266500aa990b5",
-+             "6a96d0658d9266500aa990b3",
-+             "6a96d0658d9266500aa990b1",
-+             "6a96d0658d9266500aa990af",
-+             "6a96d0658d9266500aa990ad",
-+             "6a96d0658d9266500aa990ab",
-+             "6a96d0658d9266500aa990a9",
-+             "6a96d0658d9266500aa990a7",
 +           ],
 +           "hasNextPage": false,
 +         },
@@ -359,18 +109,9 @@ AssertionError: promise resolved "{ …(12) }" instead of rejecting
 +     "createdAt": "2026-09-01T13:17:25.793Z",
 +     "duration": 60,
 +     "durationType": "fixed",
-+     "id": "6a96d0658d9266500aa9909f",
 +     "name": "60min",
 +     "resources": {
 +       "docs": [
-+         "6a96d0658d9266500aa990b5",
-+         "6a96d0658d9266500aa990b3",
-+         "6a96d0658d9266500aa990b1",
-+         "6a96d0658d9266500aa990af",
-+         "6a96d0658d9266500aa990ad",
-+         "6a96d0658d9266500aa990ab",
-+         "6a96d0658d9266500aa990a9",
-+         "6a96d0658d9266500aa990a7",
 +       ],
 +       "hasNextPage": false,
 +     },
@@ -439,14 +180,10 @@ AssertionError: promise resolved "{ …(12) }" instead of rejecting
 -   "message": "rejected promise",
 + {
 +   "createdAt": "2026-09-01T13:17:26.281Z",
-+   "customer": "6a96d0658d9266500aa9909a",
 +   "endTime": "2027-03-10T21:00:00.000Z",
 +   "guest": {},
 +   "guestCount": 1.5,
-+   "id": "6a96d0668d9266500aa9924d",
 +   "items": [],
-+   "resource": "6a96d0658d9266500aa990ab",
-+   "service": "6a96d0658d9266500aa9909f",
 +   "startTime": "2027-03-10T20:00:00.000Z",
 +   "status": "pending",
 +   "updatedAt": "2026-09-01T13:17:26.281Z",

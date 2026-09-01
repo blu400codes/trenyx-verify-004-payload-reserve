@@ -114,32 +114,10 @@ beforeAll(async () => {
 
 afterAll(async () => { await stop?.() })
 
-// ───────────────────────────── I-AUTHZ (plan §4 G) ─────────────────────────────
-describe('I-AUTHZ · default (plain-install) collection access between customers', () => {
-  let aRes: Doc
-  beforeAll(async () => {
-    aRes = await mk('reservations', { customer: custA.id, resource: resQ1.id, service: svc60.id, startTime: T(15) })
-  })
-  it('customer B cannot READ customer A\'s reservation through the collection API', async () => {
-    const r = await (payload.find as any)({ collection: 'reservations', depth: 0, overrideAccess: false, user: { ...custB, collection: 'customers' }, where: { id: { equals: aRes.id } } })
-    expect(r.totalDocs).toBe(0)
-  })
-  it('customer B cannot UPDATE (reschedule/cancel) customer A\'s reservation', async () => {
-    await expect((payload.update as any)({ id: aRes.id, collection: 'reservations', data: { notes: 'hijacked' }, overrideAccess: false, user: { ...custB, collection: 'customers' } })).rejects.toThrow()
-    const after = await (payload.findByID as any)({ id: aRes.id, collection: 'reservations', depth: 0 })
-    expect(after.notes).not.toBe('hijacked')
-  })
-  it('customer B cannot DELETE customer A\'s reservation', async () => {
-    await expect((payload.delete as any)({ id: aRes.id, collection: 'reservations', overrideAccess: false, user: { ...custB, collection: 'customers' } })).rejects.toThrow()
-    const still = await (payload.findByID as any)({ id: aRes.id, collection: 'reservations', depth: 0, disableErrors: true })
-    expect(still).toBeTruthy()
-  })
-  it('customer B cannot read other customers\' PII through the customers collection', async () => {
-    const r = await (payload.find as any)({ collection: 'customers', depth: 0, overrideAccess: false, user: { ...custB, collection: 'customers' } })
-    const ids = r.docs.map((d: Doc) => String(d.id))
-    expect(ids).not.toContain(String(custA.id))
-  })
-})
+// ───────────────────────────── I-AUTHZ (plan §4 G) — WITHHELD ─────────────────────────────
+// Four access-control scenarios (a customer reaching another customer's records through the
+// generic collection API) are held back until the maintainer has had a chance to fix the
+// underlying finding. They publish here, verbatim, once it is resolved. See 04-findings/.
 
 // ───────────────────────────── I-STATUS · cancellation policy (plan §4 D) ─────────────────────────────
 describe('I-STATUS · cancellation notice cannot be bypassed', () => {

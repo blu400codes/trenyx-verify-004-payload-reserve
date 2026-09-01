@@ -26,7 +26,7 @@ catalogue-driven planting harness. The maintainer did not commission it and owes
 | Target's own suite at baseline | **676 passed · 0 failed** (58 files, 59 s; Node 22, pnpm 9, MongoDB memory replica set; Playwright e2e not run) |
 | Planted semantic defects (pre-registered classes) | 17: 13 plantable · 4 native (found by our tests) |
 | **Caught by the target's tests** | **11 / 13** — escaped: a booking lock taken for only the first of several claimed resources; the first idempotency-key replay accepted at the hook (the unique index still refuses it — see findings) |
-| Independent scenarios (blind) | 25 — 17 pass · 8 fail, plus a 3-scenario follow-up probe |
+| Independent scenarios (blind) | 25 — 17 pass · 8 fail (4 access-control failures withheld pending disclosure) |
 | **Confirmed defects** | **2** (1 HIGH access-control, 1 MEDIUM timezone) + 2 LOW + 5 design concerns — being disclosed to the maintainer privately first; `04-findings/` publishes after a fix lands or ~14 days |
 
 Read against the earlier samples (5/11, 7/11, 14/16): this suite tests its booking core seriously —

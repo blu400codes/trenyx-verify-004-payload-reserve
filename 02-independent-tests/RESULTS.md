@@ -6,16 +6,13 @@ replica set, and asserts the invariants pre-registered in `00-preregistration/AT
 Only `src/`, the README, and the `dev/` harness helpers were read before writing it; none of the
 target's `*.spec.ts` files were.
 
-**Result: 25 scenarios — 17 pass · 8 fail.** A failing scenario is a CANDIDATE finding; each was
+**Result: 25 scenarios — 17 pass · 8 fail.** (4 of the failures are access-control scenarios held back until the maintainer has fixed the finding — shown here as one withheld row; the finding and its repro publish in `04-findings/` after disclosure.) A failing scenario is a CANDIDATE finding; each was
 handed to an independent refuter before grading (see `04-findings/`). Raw verbose output:
 `run-output.txt`.
 
 | # | invariant | scenario | result |
 |---|---|---|---|
-| 1 | I-AUTHZ · default (plain-install) collection access between customers | customer B cannot READ customer A's reservation through the collection API | **FAIL** |
-| 2 | I-AUTHZ · default (plain-install) collection access between customers | customer B cannot UPDATE (reschedule/cancel) customer A's reservation | **FAIL** |
-| 3 | I-AUTHZ · default (plain-install) collection access between customers | customer B cannot DELETE customer A's reservation | **FAIL** |
-| 4 | I-AUTHZ · default (plain-install) collection access between customers | customer B cannot read other customers' PII through the customers collection | **FAIL** |
+| 1–4 | I-AUTHZ · default collection access | **4 access-control scenarios — withheld pending disclosure (all FAIL)** | **FAIL** |
 | 5 | I-STATUS · cancellation notice cannot be bypassed | cancelling inside the notice window is refused; outside it is allowed | pass |
 | 6 | I-STATUS · cancellation notice cannot be bypassed | the OWNER deleting their own reservation inside the notice window is refused (delete must not bypass the policy) | **FAIL** |
 | 7 | I-STATUS · cancellation notice cannot be bypassed | an illegal transition is refused and a terminal status is final | pass |
