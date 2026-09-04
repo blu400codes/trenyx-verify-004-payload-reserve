@@ -1,3 +1,7 @@
 security_findings: yes
-disclosure_state: none
-withheld: 02-independent-tests/takeover.int.spec.ts, 02-independent-tests/takeover-run-output.txt
+disclosure_state: resolved
+disclosed: 2026-09-01 (private email to maintainer)
+fixed: v4.1.1 (162e6ae), 2026-09-04
+maintainer_cleared_publication: yes (2026-09-04)
+withheld: none — the F1 exploit is published as 04-findings/retest-411.int.spec.ts (regression proof vs the FIXED release)
+held_from_publication: DC4 (unauthenticated/uncapped hold endpoint) and DC5 (fail-open buffer) are NOT published — they were never put through a disclosure cycle and are not confirmed fixed. Do not publish until disclosed to the maintainer and resolved.
