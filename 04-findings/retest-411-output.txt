@@ -1,0 +1,14 @@
+
+[1m[46m RUN [49m[22m [36mv4.0.18 [39m[90m/private/tmp/claude-501/-Users-s-trenyx/8948efe3-200a-462d-96bf-ba53c7e1d28b/scratchpad/pr411[39m
+
+ [32m✓[39m [30m[45m integration [49m[39m dev/trenyx-verify/retest-411.int.spec.ts[2m > [22mF1 RETEST · standalone customer cannot reach another customer (v4.1.1)[2m > [22mS1 — customer B cannot LIST customer A in /customers (was: totalDocs≥1)[32m 5[2mms[22m[39m
+ [32m✓[39m [30m[45m integration [49m[39m dev/trenyx-verify/retest-411.int.spec.ts[2m > [22mF1 RETEST · standalone customer cannot reach another customer (v4.1.1)[2m > [22mS2 — customer B cannot READ A's reservation by id (was: returned the doc)[32m 27[2mms[22m[39m
+ [32m✓[39m [30m[45m integration [49m[39m dev/trenyx-verify/retest-411.int.spec.ts[2m > [22mF1 RETEST · standalone customer cannot reach another customer (v4.1.1)[2m > [22mS3 — customer B cannot UPDATE A's reservation (was: notes rewritten)[32m 19[2mms[22m[39m
+ [32m✓[39m [30m[45m integration [49m[39m dev/trenyx-verify/retest-411.int.spec.ts[2m > [22mF1 RETEST · standalone customer cannot reach another customer (v4.1.1)[2m > [22mS4 — customer B cannot DELETE A's reservation (delete is staff-only now)[32m 13[2mms[22m[39m
+ [32m✓[39m [30m[45m integration [49m[39m dev/trenyx-verify/retest-411.int.spec.ts[2m > [22mF1 RETEST · standalone customer cannot reach another customer (v4.1.1)[2m > [22mS5 — ACCOUNT TAKEOVER blocked: B cannot set A's password, and cannot log in as A (was: login token returned)[32m 124[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m1 passed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[32m5 passed[39m[22m[90m (5)[39m
+[2m   Start at [22m 09:39:16
+[2m   Duration [22m 5.03s[2m (transform 201ms, setup 0ms, import 1.64s, tests 1.59s, environment 0ms)[22m
+
